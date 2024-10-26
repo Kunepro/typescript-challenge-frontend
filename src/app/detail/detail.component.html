@@ -1,10 +1,16 @@
-<div class="detail-header">
-  <h1 class="title">{{ stopName() }}</h1>
-  <button mat-icon-button (click)="clearSelection()">
-    <mat-icon>clear</mat-icon>
-  </button>
-</div>
+@if (stopId) {
+  <div class="detail-header">
+    <h1 class="title">{{ stopName() }}</h1>
+    <a routerLink="/home" (click)="clearSelection()" role="button" class="mat-icon-button no-link-style">
+      <button mat-icon-button>
+        <mat-icon>clear</mat-icon>
+      </button>
+    </a>
+  </div>
 
-<span>Its very empty here (ಠ_ಠ)</span>
+  <span>Its very empty here (ಠ_ಠ)</span>
+} @else {
+  <span>Stop does not exist</span>
+}
 
 <!-- TODO add more info about the stop -->

@@ -1,23 +1,23 @@
 @import 'mixins';
 
 .map {
-	width: 100vw;
-	height: 100vh;
+  width: 100vw;
+  height: 100vh;
 }
 
 .sidebar {
-	@include flex-column();
-	position: absolute;
-	left: 0;
-	top: 0;
-	margin: var(--default-gap);
-	padding: var(--default-gap);
-	width: 400px;
-	background: var(--background-color);
-	border-radius: var(--border-radius);
-	@include shadow();
+  @include flex-column();
+  position: absolute;
+  left: 0;
+  top: 0;
+  margin: var(--default-gap);
+  padding: var(--default-gap);
+  width: 400px;
+  background: var(--background-color);
+  border-radius: var(--border-radius);
+  @include shadow();
 
-	> * {
-		flex: 1 1 auto;
-	}
+  > * {
+    flex: 1 1 auto;
+  }
 }

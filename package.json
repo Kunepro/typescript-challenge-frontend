@@ -26,6 +26,7 @@
     "@angular/router": "~18.2.4",
     "@ngrx/effects": "^18.0.2",
     "@ngrx/entity": "^18.0.2",
+    "@ngrx/router-store": "^18.0.2",
     "@ngrx/store": "^18.0.2",
     "maplibre-gl": "^4.7.0",
     "rxjs": "~7.8.1",

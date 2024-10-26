@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store'
 import { MockStore, provideMockStore } from '@ngrx/store/testing'
 import { mockTransitStop } from 'src/__mocks__/line.mock'
 import { RootState } from 'src/store/app.store'
-import { fromTransitLines } from 'src/store/transit-lines/transit-lines.selectors'
+import * as fromTransitLines from 'src/store/transit-lines/transit-lines.selectors'
 import { DetailComponent } from './detail.component'
 
 describe('DetailComponent', () => {
@@ -18,7 +18,7 @@ describe('DetailComponent', () => {
     }).compileComponents()
 
     mockStore = TestBed.inject(Store) as MockStore<RootState>
-    mockStore.overrideSelector(fromTransitLines.selectedStop, mockTransitStop())
+    mockStore.overrideSelector(fromTransitLines.selectSelectedStop, mockTransitStop())
   })
 
   beforeEach(() => {

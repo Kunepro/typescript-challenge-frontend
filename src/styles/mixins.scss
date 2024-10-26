@@ -43,3 +43,8 @@
   align-items: $align;
   justify-content: $justify;
 }
+
+@mixin no-link-style {
+  color: inherit;
+  text-decoration: none;
+}

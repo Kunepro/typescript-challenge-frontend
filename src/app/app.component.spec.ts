@@ -4,7 +4,7 @@ import { MockStore, provideMockStore } from '@ngrx/store/testing'
 import { u9 } from 'src/constants/u9'
 import { RootState } from 'src/store/app.store'
 import { TransitLinesActions } from 'src/store/transit-lines/transit-lines.actions'
-import { fromTransitLines } from 'src/store/transit-lines/transit-lines.selectors'
+import * as fromTransitLines from 'src/store/transit-lines/transit-lines.selectors'
 import { AppComponent } from './app.component'
 
 describe('AppComponent', () => {
@@ -20,7 +20,7 @@ describe('AppComponent', () => {
     }).compileComponents()
 
     mockStore = TestBed.inject(Store) as MockStore<RootState>
-    mockStore.overrideSelector(fromTransitLines.stopsPointGeoJson, null)
+    mockStore.overrideSelector(fromTransitLines.selectStopsPointGeoJson, null)
     dispatchSpy = jest.spyOn(mockStore, 'dispatch')
 
     fixture = TestBed.createComponent(AppComponent)
@@ -33,7 +33,7 @@ describe('AppComponent', () => {
   })
 
   test('should add a line on init', () => {
-    expect(dispatchSpy).toHaveBeenCalledWith(TransitLinesActions.AddLine({ line: u9 }))
+    expect(dispatchSpy).toHaveBeenCalledWith(TransitLinesActions.addLine({ line: u9 }))
   })
 
   test('should have a map', () => {

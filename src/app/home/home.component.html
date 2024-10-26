@@ -3,19 +3,34 @@
 <div class="lines-list">
   @for (line of lines(); track line.id) {
     <div class="line-item">
-      <div class="line-header">
+      <div class="line-header" (click)="toggleLineExpansion(line.id)">
         <mat-icon>directions_transit</mat-icon>
         <h2 class="subtitle">{{ line.id }}</h2>
         <span class="stops-count">{{ line.stops.length }} Stops</span>
+        <mat-icon>{{ line.isExpanded ? 'expand_less' : 'expand_more' }}</mat-icon>
       </div>
-      <div class="stops-list">
+
+      @if (line.isExpanded) {
+        <div class="stops-list">
         @for (stop of line.stops; track stop.id) {
-          <div (click)="selectStop(stop.id)" class="stop-item">
+          <!--
+            Using a div to dispatch an action just to execute a re-routing is a bad idea.
+            <a> elements offer better accessibility and display clearly to the user that the clicking of
+            the element will result in a redirection. Redirecting with effects in specific situations controlled
+            by business-logic is reasonable, but effects are not a substitute for template-level routing.
+            It is possible to pair the routerLink directive with a click event to dispatch an action when the
+            routing needs to be accompanied by changes in the state or to trigger other side effects.
+            So here I'm leaving the possibility to dispatch the changes of the selected stop together as the routerLink,
+            but in practice now the Store has been changed that now the selected stop comes from the URL rather
+            than the Store.
+          -->
+          <a [routerLink]="['/details', stop.id]" (click)="selectStop(stop.id)" role="button" class="stop-item">
             <mat-icon>stop_circle</mat-icon>
             <span>{{ stop.name }}</span>
-          </div>
+          </a>
         }
       </div>
+      }
     </div>
   }
 </div>

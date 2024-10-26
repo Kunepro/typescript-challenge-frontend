@@ -31,6 +31,7 @@
   padding: var(--small-gap);
   @include flex-row();
   @include flex-align(flex-start, center);
+  @include no-link-style;
   gap: var(--small-gap);
   border-radius: var(--border-radius);
 

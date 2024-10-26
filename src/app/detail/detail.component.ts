@@ -1,10 +1,12 @@
 import { ChangeDetectionStrategy, Component, computed, Signal } from '@angular/core'
 import { MatIconButton } from '@angular/material/button'
 import { MatIcon } from '@angular/material/icon'
+import { ActivatedRoute, RouterLink } from '@angular/router'
 import { Store } from '@ngrx/store'
-import { RootState } from 'src/store/app.store'
 import { TransitLinesActions } from 'src/store/transit-lines/transit-lines.actions'
-import { fromTransitLines } from 'src/store/transit-lines/transit-lines.selectors'
+import * as fromTransitLines from 'src/store/transit-lines/transit-lines.selectors'
+import { AppParam } from '../../types/app-param'
+import { RootState } from '../../types/root-state'
 
 @Component({
   selector: 'app-detail',
@@ -12,17 +14,37 @@ import { fromTransitLines } from 'src/store/transit-lines/transit-lines.selector
   styleUrls: ['./detail.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [MatIconButton, MatIcon],
+  imports: [MatIconButton, MatIcon, RouterLink],
 })
 export class DetailComponent {
   readonly stopName: Signal<string>
+  stopId: string | null = null
 
-  constructor(private store: Store<RootState>) {
-    const selectedStop = this.store.selectSignal(fromTransitLines.selectedStop)
+  constructor(
+    private route: ActivatedRoute,
+    private store: Store<RootState>
+  ) {
+    // The stopId you can get it either from the store or from the route snapshot, or subscribe to the route
+    // params if it was dynamic. As per example:
+    this.stopId = this.route.snapshot.paramMap.get(AppParam.StopId)
+    const selectedStop = this.store.selectSignal(fromTransitLines.selectSelectedStop)
     this.stopName = computed(() => selectedStop()?.name || 'No selection')
+
+    // The advantage of reading from the router and then using it to query the store, instead of expecting it
+    // from the store, is that in case this web link is shared or copy-pasted, there is not going to be anything set
+    // in the store of a separate browser session, so the store will not have the stopId, and the stopId will be null,
+    // but the route will still be able to show the correct stop.
+    // That's why instead of expecting the store to have the stopId, I would rather read it from the route, and then I
+    // would use that to query the store, maybe triggering an action and effect if necessary.
+    // An alternative approach is that on app initialisation you dissect the URL, and then you have a composite selector
+    // that combines the router's state of "@ngrx/router-store" and the custom app store to get the stopId and all
+    // the relative information.
+    // It is important to remember that we don't know from which page the user is coming from, and the URL can help us.
+
+    // I also noticed later that this is issues 11.
   }
 
   clearSelection(): void {
-    this.store.dispatch(TransitLinesActions.SelectStop({ selectedStopId: null }))
+    this.store.dispatch(TransitLinesActions.selectStop({ selectedStopId: null }))
   }
 }

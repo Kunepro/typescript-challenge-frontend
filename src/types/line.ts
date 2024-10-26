@@ -1,17 +1,19 @@
+// As we are using NgRx we want to enforce Object Immutability, so we should make the properties readonly.
 export interface TransitStop {
-  name: string
-  id: string
-  lat: number
-  lng: number
-  prevId: string
-  nextId: string
-  peopleOn: number
-  peopleOff: number
-  reachablePopulationWalk: number
-  reachablePopulationBike: number
+  readonly name: string
+  readonly id: string
+  readonly lat: number
+  readonly lng: number
+  readonly prevId: string
+  readonly nextId: string
+  readonly peopleOn: number
+  readonly peopleOff: number
+  readonly reachablePopulationWalk: number
+  readonly reachablePopulationBike: number
 }
 
 export interface TransitLine {
-  id: string
-  stops: TransitStop[]
+  readonly id: string
+  readonly stops: TransitStop[]
+  readonly isExpanded?: boolean
 }

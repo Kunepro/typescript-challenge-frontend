@@ -5,7 +5,7 @@ describe('Transit Lines Reducer', () => {
   test('should select a stop', () => {
     const state = transitLinesReducer(
       transitLinesInitialState,
-      TransitLinesActions.SelectStop({ selectedStopId: 'foo' })
+      TransitLinesActions.selectStop({ selectedStopId: 'foo' })
     )
     expect(state).toEqual({ ...transitLinesInitialState, selectedStopId: 'foo' })
   })

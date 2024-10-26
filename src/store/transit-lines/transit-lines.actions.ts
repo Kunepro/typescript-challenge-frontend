@@ -1,7 +1,14 @@
-import { createAction, props } from '@ngrx/store'
+import { createActionGroup, props } from '@ngrx/store'
 import { TransitLine } from 'src/types/line'
 
-export namespace TransitLinesActions {
-  export const AddLine = createAction(`[TRANSIT LINES] Add a line`, props<{ line: TransitLine }>())
-  export const SelectStop = createAction(`[TRANSIT LINES] Select a stop`, props<{ selectedStopId: string }>())
-}
+// Also here namespaces are generally frowned upon, NgRx offers at least for actions the createActionsGroup
+// which is a valid substitute.
+
+export const TransitLinesActions = createActionGroup({
+  source: 'Transit Lines',
+  events: {
+    'Add Line': props<{ line: TransitLine }>(),
+    'Select Stop': props<{ selectedStopId: string }>(),
+    'Toggle Line Expansion': props<{ lineId: string }>(),
+  },
+})
