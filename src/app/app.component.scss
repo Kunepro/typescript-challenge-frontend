@@ -1,24 +1,23 @@
 @import 'mixins';
 
-:host {
-  .map {
-    width: 100vw;
-    height: 100vh;
-  }
+.map {
+	width: 100vw;
+	height: 100vh;
+}
 
-  .sidebar {
-    @include flex-column();
-    position: absolute;
-    left: 0;
-    top: 0;
-    margin: var(--default-gap);
-    padding: var(--default-gap);
-    width: 400px;
-    background: var(--background-color);
-    border-radius: var(--border-radius);
-    @include shadow();
-    > * {
-      flex: 1 1 auto;
-    }
-  }
+.sidebar {
+	@include flex-column();
+	position: absolute;
+	left: 0;
+	top: 0;
+	margin: var(--default-gap);
+	padding: var(--default-gap);
+	width: 400px;
+	background: var(--background-color);
+	border-radius: var(--border-radius);
+	@include shadow();
+
+	> * {
+		flex: 1 1 auto;
+	}
 }

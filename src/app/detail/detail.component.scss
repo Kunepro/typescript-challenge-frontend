@@ -1,17 +1,15 @@
 @import 'mixins';
 
 :host {
-  @include flex-column();
+	@include flex-column();
   gap: var(--default-gap);
-  @include text();
-  .detail-header {
-    @include flex-row();
-    @include flex-align(space-between);
-    .title {
-      @include title();
-    }
-    button.mat-icon-button {
-      margin: calc(-1 * var(--small-gap));
-    }
+}
+
+.detail-header {
+  @include flex-row();
+  @include flex-align(space-between);
+
+  button.mat-icon-button {
+    margin: calc(-1 * var(--small-gap));
   }
 }

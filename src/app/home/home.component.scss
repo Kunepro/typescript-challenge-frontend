@@ -3,43 +3,44 @@
 :host {
   @include flex-column();
   gap: var(--default-gap);
+}
 
-  .title {
-    @include title();
+// Adding these classes inside of :host is not wrong, but redundant thanks to
+// Angular's view encapsulation, taking them out the file should
+// be slightly smaller.
+
+// Also thanks to Angular's view encapsulation we can flatten the
+// nesting as the risk of class name collision is minimal.
+
+.line-item {
+  @include flex-column();
+  gap: var(--small-gap);
+  border: 1px solid var(--highlight-color);
+  border-radius: var(--border-radius);
+  padding: var(--default-gap);
+}
+
+.line-header {
+  @include flex-row();
+  @include flex-align(flex-start, center);
+  gap: var(--small-gap);
+}
+
+.stop-item {
+  cursor: pointer;
+  padding: var(--small-gap);
+  @include flex-row();
+  @include flex-align(flex-start, center);
+  gap: var(--small-gap);
+  border-radius: var(--border-radius);
+
+  &:hover {
+    background: var(--highlight-color);
   }
-  .subtitle {
-    @include subtitle();
-  }
-  @include text();
 
-  .line-item {
-    @include flex-column();
-    gap: var(--small-gap);
-    border: 1px solid var(--highlight-color);
-    border-radius: var(--border-radius);
-    padding: var(--default-gap);
-
-    .line-header {
-      @include flex-row();
-      @include flex-align(flex-start, center);
-      gap: var(--small-gap);
-    }
-
-    .stop-item {
-      cursor: pointer;
-      padding: var(--small-gap);
-      @include flex-row();
-      @include flex-align(flex-start, center);
-      gap: var(--small-gap);
-      border-radius: var(--border-radius);
-      &:hover {
-        background: var(--highlight-color);
-      }
-      mat-icon {
-        width: 14px;
-        height: 14px;
-        font-size: 14px;
-      }
-    }
+  mat-icon {
+    width: 14px;
+    height: 14px;
+    font-size: 14px;
   }
 }

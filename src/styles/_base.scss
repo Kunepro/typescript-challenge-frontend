@@ -1,0 +1,13 @@
+@import 'mixins';
+
+// instead or repeating the class in every file, we can define it globally and then
+// overwrite with custom implementations in the component level.
+// We can still keep the mixin in the global scope, in case we want to use it for something else, even though we could just add the class to a component template, this makes it a bit more intuitive how to overwrite partials of a mixin
+
+.title {
+	@include title();
+}
+
+.subtitle {
+	@include subtitle();
+}
