@@ -1,8 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing'
 import { Store } from '@ngrx/store'
 import { MockStore, provideMockStore } from '@ngrx/store/testing'
-import { RootState } from 'src/store/app.store'
 import * as fromTransitLines from 'src/store/transit-lines/transit-lines.selectors'
+import { RootState } from '../../types/root-state'
 import { HomeComponent } from './home.component'
 
 describe('HomeComponent', () => {

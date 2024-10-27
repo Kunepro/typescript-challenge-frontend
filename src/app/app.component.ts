@@ -1,11 +1,17 @@
-import { ChangeDetectionStrategy, Component, ElementRef, OnInit, ViewChild } from '@angular/core'
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core'
 import { RouterOutlet } from '@angular/router'
 import { select, Store } from '@ngrx/store'
 import { GeoJSONSource, Map } from 'maplibre-gl'
+import { Subscription } from 'rxjs'
 import { MARKER_PAINT } from 'src/constants/marker-paint'
-import { u9 } from 'src/constants/u9'
 import { environment } from 'src/environments/environment'
-import { TransitLinesActions } from 'src/store/transit-lines/transit-lines.actions'
 import * as fromTransitLines from '../store/transit-lines/transit-lines.selectors'
 import { RootState } from '../types/root-state'
 
@@ -20,8 +26,9 @@ const STOPS_LAYER_ID = 'stops-layer'
   standalone: true,
   imports: [RouterOutlet],
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnDestroy {
   @ViewChild('map', { static: true }) private mapRef: ElementRef<HTMLElement>
+  private subscriptions: Subscription = new Subscription()
 
   private map: Map
 
@@ -30,8 +37,11 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.store.dispatch(TransitLinesActions.addLine({ line: u9 }))
     this.initMap()
+  }
+
+  public ngOnDestroy() {
+    this.subscriptions.unsubscribe()
   }
 
   private initMap(): void {
@@ -53,15 +63,17 @@ export class AppComponent implements OnInit {
   private setupStopsLayer(): void {
     const stopsSource$ = this.store.pipe(select(fromTransitLines.selectStopsPointGeoJson))
 
-    stopsSource$.subscribe((source) => {
-      const existingSource = this.map.getSource(STOPS_SOURCE_ID) as GeoJSONSource
+    this.subscriptions.add(
+      stopsSource$.subscribe((source) => {
+        const existingSource = this.map.getSource(STOPS_SOURCE_ID) as GeoJSONSource
 
-      if (existingSource) {
-        existingSource.setData(source.data)
-      } else {
-        this.map.addSource(STOPS_SOURCE_ID, source)
-      }
-    })
+        if (existingSource) {
+          existingSource.setData(source.data)
+        } else {
+          this.map.addSource(STOPS_SOURCE_ID, source)
+        }
+      })
+    )
 
     this.map.addLayer({
       type: 'circle',

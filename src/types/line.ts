@@ -17,3 +17,19 @@ export interface TransitLine {
   readonly stops: TransitStop[]
   readonly isExpanded?: boolean
 }
+
+export interface StopMetrics {
+  min: number;
+  max: number;
+  avg: number;
+}
+
+export interface TransitStopWithMetrics {
+  stop: TransitStop | null;
+  metrics: {
+    peopleOn: StopMetrics;
+    peopleOff: StopMetrics;
+    reachablePopulationWalk: StopMetrics;
+    reachablePopulationBike: StopMetrics;
+  };
+}

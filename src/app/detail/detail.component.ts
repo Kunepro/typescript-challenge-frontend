@@ -1,11 +1,14 @@
-import { ChangeDetectionStrategy, Component, computed, Signal } from '@angular/core'
+import { ChangeDetectionStrategy, Component, Signal } from '@angular/core'
 import { MatIconButton } from '@angular/material/button'
 import { MatIcon } from '@angular/material/icon'
-import { ActivatedRoute, RouterLink } from '@angular/router'
+import { RouterLink } from '@angular/router'
 import { Store } from '@ngrx/store'
 import { TransitLinesActions } from 'src/store/transit-lines/transit-lines.actions'
 import * as fromTransitLines from 'src/store/transit-lines/transit-lines.selectors'
-import { AppParam } from '../../types/app-param'
+import {
+  StopMetrics,
+  TransitStopWithMetrics,
+} from '../../types/line'
 import { RootState } from '../../types/root-state'
 
 @Component({
@@ -17,18 +20,18 @@ import { RootState } from '../../types/root-state'
   imports: [MatIconButton, MatIcon, RouterLink],
 })
 export class DetailComponent {
-  readonly stopName: Signal<string>
+  readonly stopDetails: Signal<TransitStopWithMetrics>
   stopId: string | null = null
 
   constructor(
-    private route: ActivatedRoute,
+    // private route: ActivatedRoute,
     private store: Store<RootState>
   ) {
     // The stopId you can get it either from the store or from the route snapshot, or subscribe to the route
     // params if it was dynamic. As per example:
-    this.stopId = this.route.snapshot.paramMap.get(AppParam.StopId)
-    const selectedStop = this.store.selectSignal(fromTransitLines.selectSelectedStop)
-    this.stopName = computed(() => selectedStop()?.name || 'No selection')
+    // this.stopId = this.route.snapshot.paramMap.get(AppParam.StopId)
+    // Of course it becomes useless and redundant if you get the whole object as per below
+    this.stopDetails = this.store.selectSignal(fromTransitLines.selectSelectedStopWithMetrics)
 
     // The advantage of reading from the router and then using it to query the store, instead of expecting it
     // from the store, is that in case this web link is shared or copy-pasted, there is not going to be anything set
@@ -46,5 +49,11 @@ export class DetailComponent {
 
   clearSelection(): void {
     this.store.dispatch(TransitLinesActions.selectStop({ selectedStopId: null }))
+  }
+
+  calculateWidth(value: number, metrics: StopMetrics): number {
+    const { min, max } = metrics;
+    const width = ((value - min) / (max - min)) * 100;
+    return Math.min(width, 100);
   }
 }

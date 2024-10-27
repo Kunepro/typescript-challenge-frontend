@@ -1,6 +1,6 @@
-@if (stopId) {
+@if (stopDetails(); as transitStop) {
   <div class="detail-header">
-    <h1 class="title">{{ stopName() }}</h1>
+    <h1 class="title">{{ transitStop.stop.name }}</h1>
     <a routerLink="/home" (click)="clearSelection()" role="button" class="mat-icon-button no-link-style">
       <button mat-icon-button>
         <mat-icon>clear</mat-icon>
@@ -8,7 +8,65 @@
     </a>
   </div>
 
-  <span>Its very empty here (ಠ_ಠ)</span>
+  <div class="stats">
+    <div class="stat-item">
+      <div class="stat-info">
+        <mat-icon>people</mat-icon>
+        <span class="stat-title">People On</span>
+      </div>
+      <div class="stat-bar-container">
+        <div class="stat-bar" [style.width.%]="calculateWidth(transitStop.stop.peopleOn, transitStop.metrics.peopleOn)">
+          {{ transitStop.stop.peopleOn }}
+        </div>
+      </div>
+    </div>
+
+    <div class="stat-item">
+      <div class="stat-info">
+        <mat-icon>people</mat-icon>
+        <span class="stat-title">People Off</span>
+      </div>
+      <div class="stat-bar-container">
+        <div
+          class="stat-bar"
+          [style.width.%]="calculateWidth(transitStop.stop.peopleOff, transitStop.metrics.peopleOff)">
+          {{ transitStop.stop.peopleOff }}
+        </div>
+      </div>
+    </div>
+
+    <div class="stat-item">
+      <div class="stat-info">
+        <mat-icon>directions_walk</mat-icon>
+        <span class="stat-title">Walkable Population</span>
+      </div>
+      <div class="stat-bar-container">
+        <div
+          class="stat-bar"
+          [style.width.%]="
+            calculateWidth(transitStop.stop.reachablePopulationWalk, transitStop.metrics.reachablePopulationWalk)
+          ">
+          {{ transitStop.stop.reachablePopulationWalk }}
+        </div>
+      </div>
+    </div>
+
+    <div class="stat-item">
+      <div class="stat-info">
+        <mat-icon>directions_bike</mat-icon>
+        <span class="stat-title">Bikeable Population</span>
+      </div>
+      <div class="stat-bar-container">
+        <div
+          class="stat-bar"
+          [style.width.%]="
+            calculateWidth(transitStop.stop.reachablePopulationBike, transitStop.metrics.reachablePopulationBike)
+          ">
+          {{ transitStop.stop.reachablePopulationBike }}
+        </div>
+      </div>
+    </div>
+  </div>
 } @else {
   <span>Stop does not exist</span>
 }

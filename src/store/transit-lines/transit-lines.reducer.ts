@@ -21,7 +21,11 @@ const reducer = createReducer(
   transitLinesInitialState,
   // In the reducer I like to hardcode the return type of the statement to make sure that I correctly return
   // a new valid reducer state, instead of leaving it to type inference.
-  on(TransitLinesActions.addLine, (state, { line }): TransitLinesState => transitLinesAdapter.addOne(line, state)),
+  // SetAll might be an alternative, but that would delete custom created line if the request is updated, so it depends
+  // on the use case.
+  on(TransitLinesActions.loadLinesSuccess, (state, { lines }): TransitLinesState =>
+    transitLinesAdapter.upsertMany(lines, state)
+  ),
   on(
     TransitLinesActions.selectStop,
     (state, { selectedStopId }): TransitLinesState => ({
