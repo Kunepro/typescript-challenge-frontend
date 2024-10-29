@@ -10,7 +10,7 @@ export class CustomRouterSerialiser implements RouterStateSerializer<StateRouter
 
     while (route) {
       route = route.firstChild
-      Object.assign(accumulatedParams, route?.params);
+      Object.assign(accumulatedParams, route?.params)
     }
 
     const url = routerState.url

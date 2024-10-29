@@ -1,11 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  ElementRef,
-  OnDestroy,
-  OnInit,
-  ViewChild,
-} from '@angular/core'
+import { ChangeDetectionStrategy, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core'
 import { RouterOutlet } from '@angular/router'
 import { select, Store } from '@ngrx/store'
 import { GeoJSONSource, Map } from 'maplibre-gl'

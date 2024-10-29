@@ -19,17 +19,17 @@ export interface TransitLine {
 }
 
 export interface StopMetrics {
-  min: number;
-  max: number;
-  avg: number;
+  min: number
+  max: number
+  avg: number
 }
 
 export interface TransitStopWithMetrics {
-  stop: TransitStop | null;
+  stop: TransitStop | null
   metrics: {
-    peopleOn: StopMetrics;
-    peopleOff: StopMetrics;
-    reachablePopulationWalk: StopMetrics;
-    reachablePopulationBike: StopMetrics;
-  };
+    peopleOn: StopMetrics
+    peopleOff: StopMetrics
+    reachablePopulationWalk: StopMetrics
+    reachablePopulationBike: StopMetrics
+  }
 }

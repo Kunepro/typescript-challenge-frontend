@@ -23,7 +23,7 @@ export class HomeComponent {
   }
 
   toggleLineExpansion(lineId: string): void {
-    this.store.dispatch(TransitLinesActions.toggleLineExpansion({ lineId }));
+    this.store.dispatch(TransitLinesActions.toggleLineExpansion({ lineId }))
   }
 
   selectStop(selectedStopId: string): void {

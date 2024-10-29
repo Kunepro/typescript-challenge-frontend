@@ -1,10 +1,5 @@
 import { Injectable } from '@angular/core'
-import {
-  Actions,
-  createEffect,
-  ofType,
-  ROOT_EFFECTS_INIT,
-} from '@ngrx/effects'
+import { Actions, createEffect, ofType, ROOT_EFFECTS_INIT } from '@ngrx/effects'
 import { catchError, map, of, switchMap } from 'rxjs'
 import { u9 } from '../../constants/u9'
 import { TransitLinesActions } from './transit-lines.actions'
@@ -42,7 +37,7 @@ export class TransitLinesEffects {
       ofType(ROOT_EFFECTS_INIT),
       map(() => TransitLinesActions.loadLines())
     )
-  );
+  )
 
   loadLines$ = createEffect(() =>
     this.actions$.pipe(

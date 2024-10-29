@@ -5,10 +5,7 @@ import { RouterLink } from '@angular/router'
 import { Store } from '@ngrx/store'
 import { TransitLinesActions } from 'src/store/transit-lines/transit-lines.actions'
 import * as fromTransitLines from 'src/store/transit-lines/transit-lines.selectors'
-import {
-  StopMetrics,
-  TransitStopWithMetrics,
-} from '../../types/line'
+import { StopMetrics, TransitStopWithMetrics } from '../../types/line'
 import { RootState } from '../../types/root-state'
 
 @Component({
@@ -52,8 +49,8 @@ export class DetailComponent {
   }
 
   calculateWidth(value: number, metrics: StopMetrics): number {
-    const { min, max } = metrics;
-    const width = ((value - min) / (max - min)) * 100;
-    return Math.min(width, 100);
+    const { min, max } = metrics
+    const width = ((value - min) / (max - min)) * 100
+    return Math.min(width, 100)
   }
 }

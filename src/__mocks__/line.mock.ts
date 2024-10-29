@@ -1,8 +1,5 @@
 import { faker } from '@faker-js/faker'
-import {
-  TransitStop,
-  TransitStopWithMetrics,
-} from 'src/types/line'
+import { TransitStop, TransitStopWithMetrics } from 'src/types/line'
 
 export function mockTransitStop(seed: Partial<TransitStop> = {}): TransitStop {
   return {

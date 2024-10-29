@@ -23,8 +23,9 @@ const reducer = createReducer(
   // a new valid reducer state, instead of leaving it to type inference.
   // SetAll might be an alternative, but that would delete custom created line if the request is updated, so it depends
   // on the use case.
-  on(TransitLinesActions.loadLinesSuccess, (state, { lines }): TransitLinesState =>
-    transitLinesAdapter.upsertMany(lines, state)
+  on(
+    TransitLinesActions.loadLinesSuccess,
+    (state, { lines }): TransitLinesState => transitLinesAdapter.upsertMany(lines, state)
   ),
   on(
     TransitLinesActions.selectStop,
@@ -33,16 +34,18 @@ const reducer = createReducer(
       selectedStopId,
     })
   ),
-  on(TransitLinesActions.toggleLineExpansion, (state, { lineId }): TransitLinesState =>
-    transitLinesAdapter.updateOne(
-      {
-        id: lineId,
-        changes: {
-          isExpanded: !state.entities[lineId]?.isExpanded,
+  on(
+    TransitLinesActions.toggleLineExpansion,
+    (state, { lineId }): TransitLinesState =>
+      transitLinesAdapter.updateOne(
+        {
+          id: lineId,
+          changes: {
+            isExpanded: !state.entities[lineId]?.isExpanded,
+          },
         },
-      },
-      state
-    )
+        state
+      )
   )
 )
 

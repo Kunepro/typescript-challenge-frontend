@@ -4,6 +4,6 @@ import { StoreFeature } from './store-feature'
 import { TransitLinesState } from './transit-line-state'
 
 export interface RootState {
-  readonly [StoreFeature.TransitLines]: TransitLinesState,
+  readonly [StoreFeature.TransitLines]: TransitLinesState
   readonly [StoreFeature.Router]: RouterReducerState<StateRouter>
 }

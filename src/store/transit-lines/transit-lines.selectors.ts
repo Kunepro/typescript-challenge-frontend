@@ -94,7 +94,7 @@ const calculateMetrics = (values: number[]): StopMetrics => {
   const sum = values.reduce((acc, value) => acc + value, 0)
   const avg = sum / values.length
   const min = Math.min(...values)
-  const max = Math.min(Math.max(...values), avg * 1.5);
+  const max = Math.min(Math.max(...values), avg * 1.5)
   return {
     min,
     max,
